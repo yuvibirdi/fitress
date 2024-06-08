@@ -1,0 +1,21 @@
+/* Tetris.css */
+
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(10, 30px);
+  grid-gap: 1px;
+}
+
+.row {
+  display: flex;
+}
+
+.cell {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ccc;
+}
+
+.occupied {
+  background-color: #000;
+}
