@@ -151,9 +151,11 @@ const Tetris = () => {
 
   return (
     <div className="tetris">
-      <h1>Tetris</h1>
-      <GameGrid grid={grid} tetromino={tetromino} tetrominoPos={tetrominoPos} />
-      {gameOver && <div className="game-over">Game Over</div>}
+      <div className='up'>
+        <h1>FITRIS</h1>
+        <GameGrid grid={grid} tetromino={tetromino} tetrominoPos={tetrominoPos} />
+        {gameOver && <div className="game-over">Game Over</div>}
+      </div>
     </div>
   );
 };
