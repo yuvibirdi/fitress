@@ -1,15 +1,14 @@
 /* App.css */
-
-.game-grid {
-  display: grid;
-  grid-template-columns: repeat(10, 40px); /* Increase cell width to 40px */
-  grid-gap: 2px; /* Increase grid gap for spacing */
+body{
+  font-family: "Press Start 2P", system-ui;
+  font-weight: 400;
+  font-style: normal;  
 }
 
-.cell {
-  width: 40px; /* Increase cell width */
-  height: 40px; /* Increase cell height */
-  border: 1px solid #ccc;
+.App{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: radial-gradient(circle at center, #7163f5, #010158);
 }
-
-/* Adjust other styles as needed */
