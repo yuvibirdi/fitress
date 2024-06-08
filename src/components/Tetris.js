@@ -10,7 +10,6 @@ const Tetris = () => {
   const [tetromino, setTetromino] = useState(randomTetromino());
   const [tetrominoPos, setTetrominoPos] = useState({ x: Math.floor(GRID_WIDTH / 2) - 1, y: 0 });
   const [gameOver, setGameOver] = useState(false);
-  const [shadowTetrominoPos, setShadowTetrominoPos] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     const initializeGame = () => {
@@ -68,6 +67,21 @@ const Tetris = () => {
     }
   };
 
+  const harddropTetromino = () => {
+    let dropDistance = 0;
+    while (!checkCollision(tetromino, grid, { x: tetrominoPos.x, y: tetrominoPos.y + dropDistance + 1 })) {
+      dropDistance++;
+    }
+    // Set the Tetrimino position to the final drop position
+    setTetrominoPos((prevPos) => ({
+      ...prevPos,
+      y: prevPos.y + dropDistance,
+    }));
+    // Lock the Tetrimino in place and spawn a new one
+  };
+  
+  
+
   const placeTetromino = () => {
     const newGrid = grid.map((row) => [...row]);
 
@@ -105,31 +119,6 @@ const Tetris = () => {
     }
   };
 
-  const calculateShadowPosition = () => {
-    let shadowY = tetrominoPos.y;
-    while (!checkCollision(tetromino, grid, { x: tetrominoPos.x, y: shadowY + 1 })) {
-      shadowY++;
-    }
-    setShadowTetrominoPos({ x: tetrominoPos.x, y: shadowY });
-  };
-
-  const hardDropTetromino = () => {
-    let newY = tetrominoPos.y;
-    // Move the tetromino down until collision
-    while (!checkCollision(tetromino, grid, { x: tetrominoPos.x, y: newY + 1 })) {
-      newY++;
-    }
-    // Update tetromino position
-    setTetrominoPos((prevPos) => ({
-      ...prevPos,
-      y: newY,
-    }));
-    // Lock the tetromino in place
-    placeTetromino();
-  };
-  
-
-
   const handleKeyDown = (event) => {
     if (!gameOver) {
       switch (event.key) {
@@ -140,7 +129,7 @@ const Tetris = () => {
           moveTetromino(1, 0);
           break;
         case 'ArrowDown':
-          hardDropTetromino();
+          harddropTetromino();
           break;
         case 'ArrowUp':
           rotateTetromino();
@@ -149,17 +138,6 @@ const Tetris = () => {
           break;
       }
     }
-  };
-
-  const hardDrop = () => {
-    setTetrominoPos((prevPos) => {
-      let hardDropPos = { ...prevPos };
-      while (!checkCollision(tetromino, grid, { x: hardDropPos.x, y: hardDropPos.y + 1 })) {
-        hardDropPos.y++;
-      }
-      return hardDropPos;
-    });
-    placeTetromino();
   };
 
   useEffect(() => {
@@ -174,10 +152,10 @@ const Tetris = () => {
   return (
     <div className="tetris">
       <h1>Tetris</h1>
-      <GameGrid grid={grid} tetromino={tetromino} tetrominoPos={tetrominoPos} shadowTetrominoPos={shadowTetrominoPos} />
+      <GameGrid grid={grid} tetromino={tetromino} tetrominoPos={tetrominoPos} />
       {gameOver && <div className="game-over">Game Over</div>}
     </div>
   );
 };
 
-export default Tetris
+export default Tetris;
