@@ -12,7 +12,8 @@ const Tetris = () => {
   const [hold, setHold] = useState(null);
   const [hasHeld, setHasHeld] = useState(false);
   const [nextThreeTetrominos, setNextThreeTetrominos] = useState([null, null, null]);
-  
+  const [score, setScore] = useState(0);
+
 
   useEffect(() => {
     const initializeGame = () => {
@@ -23,10 +24,15 @@ const Tetris = () => {
       setTetrominoPos({ x: Math.floor(GRID_WIDTH / 2) - 1, y: 0 });
       setGameOver(false);
       setNextThreeTetrominos([randomTetromino(), randomTetromino(), randomTetromino()]);
+      setScore(0); // Reset score
+
     };
 
     initializeGame();
   }, []);
+
+  let storedHighScore = localStorage.getItem('highscore');
+  let highest = storedHighScore ? parseInt(storedHighScore) : 0;
 
   useEffect(() => {
     const dropInterval = setInterval(() => {
@@ -37,7 +43,7 @@ const Tetris = () => {
       // console.log(tetromino)
       // console.log(colours)
     return () => clearInterval(dropInterval);
- }, [tetrominoPos, tetromino, grid, colours]);
+ }, [tetrominoPos, tetromino, grid, colours, gameOver]);
 
   const moveTetromino = (dx, dy) => {
     if (!checkCollision(tetromino, grid, { x: tetrominoPos.x + dx, y: tetrominoPos.y + dy })) {
@@ -110,10 +116,16 @@ const Tetris = () => {
     popAndSetNextTetromino();
     setTetrominoStartPos();
   };
+  
 
   const setTetrominoStartPos = () => {
     const newTetrominoPos = { x: Math.floor(GRID_WIDTH / 2) - 1, y: 0 };
     if (checkCollision(tetromino, grid, newTetrominoPos)) {
+      if (score >= highest){
+        highest = score;
+      }
+      localStorage.setItem('highscore', highest.toString());
+    
       setGameOver(true);
     } else {
       setTetrominoPos(newTetrominoPos);
@@ -132,6 +144,7 @@ const Tetris = () => {
 
   const placeTetromino = (tetrominoPos) => {
     const newGrid = grid.map((row) => [...row]);
+    let linesCleared = 0;
 
     tetromino.forEach((row, y) => {
       row.forEach((cell, x) => {
@@ -152,8 +165,13 @@ const Tetris = () => {
         newGrid.splice(y, 1);
         newGrid.unshift(Array(GRID_WIDTH).fill(0));
         y++;
+        linesCleared++;
       }
     }
+
+    const blockDropScore = tetromino.reduce((acc, row) => acc + row.filter(cell => cell !== 0).length, 0);
+    setScore(prevScore => prevScore + (linesCleared * 100) + blockDropScore);
+
 
     // Spawn a new Tetromino
     spawnTetromino();
@@ -184,44 +202,45 @@ const Tetris = () => {
     setTetrominoStartPos()
   }
 
-  const handleKeyDown = (event) => {
-    if (!gameOver) {
-      switch (event.key) {
-        case 'ArrowLeft':
-          moveTetromino(-1, 0);
-          break;
-        case 'ArrowRight':
-          moveTetromino(1, 0);
-          break;
-        case 'ArrowDown':
-          harddropTetromino();
-          break;
-        case 'ArrowUp':
-          rotateTetromino();
-          break;
-        case 'Enter':
-          holdTetromino();
-          break;
-        default:
-          break;
-      }
-    }
-  };
+  // const handleKeyDown = (event) => {
+  //   if (!gameOver) {
+  //     switch (event.key) {
+  //       case 'ArrowLeft':
+  //         moveTetromino(-1, 0);
+  //         break;
+  //       case 'ArrowRight':
+  //         moveTetromino(1, 0);
+  //         break;
+  //       case 'ArrowDown':
+  //         harddropTetromino();
+  //         break;
+  //       case 'ArrowUp':
+  //         rotateTetromino();
+  //         break;
+  //       case 'Enter':
+  //         holdTetromino();
+  //         break;
+  //       default:
+  //         break;
+  //     }
+  //   }
+  // };
 
-  useEffect(() => {
-    // Add keyboard event listener
-    document.addEventListener('keydown', handleKeyDown);
-    return () => {
-      // Remove keyboard event listener
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [handleKeyDown]);
+  // useEffect(() => {
+  //   // Add keyboard event listener
+  //   document.addEventListener('keydown', handleKeyDown);
+  //   return () => {
+  //     // Remove keyboard event listener
+  //     document.removeEventListener('keydown', handleKeyDown);
+  //   };
+  // }, [handleKeyDown]);
 
   console.log(hold)
 
 
   return (
     <div className='whole'>
+      <div className='leftline'>
       <div className='tetrisTwo'>
         <div className='uppt2'>
           <h2>HOLDS</h2>
@@ -230,6 +249,15 @@ const Tetris = () => {
           grid={createEmptyGrid(5, 10)} // Render an empty grid
         />)}
         </div>
+      </div>
+      </div>
+      <div className='tetrisTwo'>
+        <div className='uppt2'>
+          <h2>SCORE</h2>
+          <div className="score">{score}</div>
+          <h2>HIGH SCORE</h2>
+          <div className="score">{highest}</div>
+      </div>
       </div>
       </div>
     <div className="tetris">
