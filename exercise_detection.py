@@ -50,6 +50,7 @@ def check_validity(land_marks):
     
 # Does UDP send
 def udp_send(ex_name):
+    print(ex_name)
     with open("exercise.txt", "w") as file:
         file.write(ex_name + "\n")
 
