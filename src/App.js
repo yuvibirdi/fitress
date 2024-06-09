@@ -1,13 +1,23 @@
 // App.js
 
-import React from 'react';
-import './App.css';
-import Tetris from './components/Tetris';
+import React, { useState, useEffect } from 'react';
 
 function App() {
+
+  const [data, setData] = useState([{}]);
+
+  useEffect(() => {
+    fetch("/members").then(
+      data => {
+        setData(data)
+        console.log(data)
+      }
+    )
+  }, [])
+
   return (
-    <div className="App">
-      <Tetris />
+    <div>
+      
     </div>
   );
 }
