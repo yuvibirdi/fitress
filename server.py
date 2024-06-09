@@ -1,20 +1,20 @@
-from flask import Flask
+from flask import Flask, jsonify # type: ignore
 
 app = Flask(__name__)
 
+@app.route('/exercise')
+def exercise():
+    exercises = []  # Initialize an empty list to store exercises
+    try:
+        with open("exercise.txt", "r") as file:
+            for line in file:
+                exercises.append(line.strip())  # Add each stripped line to the list
+    except FileNotFoundError:
+        return jsonify({"error": "File not found"}), 404  # Handle file not found error
 
-
-# Members API Route
-
-@app.route('/members')
-def members():
-    list = []
-    with open("exercise.txt", "r") as file:
-        for line in file:
-            list.append(print(line.strip()))
-            # strip() removes the newline character at the end of each line
-
-    return list
+    print(exercises)
+    
+    return jsonify({"exercise": exercises})  # Convert dictionary to JSON
 
 
 if __name__ == '__main__':

@@ -1,25 +1,22 @@
-// App.js
+import React, {useState, useEffect} from "react";
 
-import React, { useState, useEffect } from 'react';
+function App(){
 
-function App() {
-
-  const [data, setData] = useState([{}]);
-
+  const [data, setData] = useState([{}])
   useEffect(() => {
-    fetch("/members").then(
+    fetch("/exercise").then(
+      res => res.json()
+    ).then(
       data => {
-        setData(data)
+        setData(data);
         console.log(data)
       }
     )
   }, [])
-
   return (
     <div>
-      
-    </div>
-  );
-}
 
+    </div>
+  )
+}
 export default App;
