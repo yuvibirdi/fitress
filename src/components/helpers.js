@@ -30,16 +30,17 @@ export const checkCollision = (tetromino, grid, { x: moveX, y: moveY }) => {
 };
 
 export const randomTetromino = () => {
-    const tetrominoes = [
-      [[1, 1, 1, 1]],                     // I
-      [[1, 1, 1], [0, 1, 0]],             // T
-      [[1, 1, 1], [1, 0, 0]],             // J
-      [[1, 1, 1], [0, 0, 1]],             // L
-      [[1, 1], [1, 1]],                   // O
-      [[0, 1, 1], [1, 1, 0]],             // S
-      [[1, 1, 0], [0, 1, 1]],             // Z
-    ];
-  
-    const randomIndex = Math.floor(Math.random() * tetrominoes.length);
-    return tetrominoes[randomIndex];
-  };
+  const tetrominoes = [
+    { shape: [[1, 1, 1, 1]], color: 'cyan' },            // I
+    { shape: [[1, 1, 1], [0, 1, 0]], color: 'purple' },  // T
+    { shape: [[1, 1, 1], [1, 0, 0]], color: 'blue' },    // J
+    { shape: [[1, 1, 1], [0, 0, 1]], color: 'orange' },  // L
+    { shape: [[1, 1], [1, 1]], color: 'yellow' },        // O
+    { shape: [[0, 1, 1], [1, 1, 0]], color: 'green' },   // S
+    { shape: [[1, 1, 0], [0, 1, 1]], color: 'red' },     // Z
+
+];
+
+const randomIndex = Math.floor(Math.random() * tetrominoes.length);
+return tetrominoes[randomIndex];
+};
