@@ -7,6 +7,7 @@ from datetime import timedelta
 import socket
 from datetime import datetime
 
+
 mp_drawing  = mp.solutions.drawing_utils
 mp_pose = mp.solutions.pose
 
@@ -49,8 +50,12 @@ def check_validity(land_marks):
     
 # Does UDP send
 def udp_send(ex_name):
+    print(f'ex_name: {ex_name}')
+    with open("exercise.txt", "w") as file:
+        file.write(ex_name + "\n")
 
-    print(ex_name)
+    
+    
 
     # UDP_IP = "127.0.0.1"
     # UDP_PORT = 5005

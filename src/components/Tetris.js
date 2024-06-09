@@ -3,7 +3,7 @@ import { createEmptyGrid, checkCollision, GRID_WIDTH, GRID_HEIGHT, randomTetromi
 import GameGrid from './GameGrid';
 import './Tetris.css'; // Import Tetris-specific CSS
 
-const Tetris = () => {
+const Tetris = ({data}) => {
   const [grid, setGrid] = useState(createEmptyGrid(15, 10));
   const [tetromino, setTetromino] = useState();
   const [tetrominoPos, setTetrominoPos] = useState({ x: Math.floor(GRID_WIDTH / 2) - 1, y: 0 });
@@ -13,6 +13,9 @@ const Tetris = () => {
   const [hasHeld, setHasHeld] = useState(false);
   const [nextThreeTetrominos, setNextThreeTetrominos] = useState([null, null, null]);
   const [score, setScore] = useState(0);
+
+  console.log("data received in Tetris.js:")
+  console.log(data)
 
 
   useEffect(() => {
@@ -203,27 +206,27 @@ const Tetris = () => {
   }
 
   // const handleKeyDown = (event) => {
-  //   if (!gameOver) {
-  //     switch (event.key) {
-  //       case 'ArrowLeft':
-  //         moveTetromino(-1, 0);
-  //         break;
-  //       case 'ArrowRight':
-  //         moveTetromino(1, 0);
-  //         break;
-  //       case 'ArrowDown':
-  //         harddropTetromino();
-  //         break;
-  //       case 'ArrowUp':
-  //         rotateTetromino();
-  //         break;
-  //       case 'Enter':
-  //         holdTetromino();
-  //         break;
-  //       default:
-  //         break;
-  //     }
-  //   }
+    if (!gameOver) {
+      switch (data[0]) {
+        case 'Sway Left':
+          moveTetromino(-1, 0);
+          break;
+        case 'Sway Right':
+          moveTetromino(1, 0);
+          break;
+        case 'Squat':
+          harddropTetromino();
+          break;
+        case 'Jumping Jack':
+          rotateTetromino();
+          break;
+        case 'Flex':
+          holdTetromino();
+          break;
+        default:
+          break;
+      }
+    }
   // };
 
   // useEffect(() => {
@@ -235,7 +238,6 @@ const Tetris = () => {
   //   };
   // }, [handleKeyDown]);
 
-  console.log(hold)
 
 
   return (
