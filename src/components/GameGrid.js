@@ -3,7 +3,7 @@
 import React from 'react';
 import { randomTetromino } from './helpers';
 
-const GameGrid = ({ grid, tetromino, tetrominoPos, colours }) => {
+const GameGrid = ({ grid, tetromino, tetrominoPos, colours, className }) => {
   const isTetrominoCell = (rowIndex, colIndex) => {
     if (
       tetromino &&
@@ -28,7 +28,7 @@ const GameGrid = ({ grid, tetromino, tetrominoPos, colours }) => {
           if (isOccupied){
             if (isTetrominoCell(rowIndex, colIndex)){
               return (
-                <div key={`${rowIndex}-${colIndex}`} className={`cell ${isOccupied ? 'occupied' : '' }`} style={{backgroundColor: colours}}>
+                <div key={`${rowIndex}-${colIndex}`} className={`cell ${isOccupied ? 'occupi`game-grid ${className}`{`game-grid ${className}`ed' : '' }`} style={{backgroundColor: colours}}>
                   {isOccupied}
                 </div>
               );

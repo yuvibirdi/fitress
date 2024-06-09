@@ -4,7 +4,7 @@ import GameGrid from './GameGrid';
 import './Tetris.css'; // Import Tetris-specific CSS
 
 const Tetris = () => {
-  const [grid, setGrid] = useState(createEmptyGrid());
+  const [grid, setGrid] = useState(createEmptyGrid(15, 10));
   const [tetromino, setTetromino] = useState();
   const [tetrominoPos, setTetrominoPos] = useState({ x: Math.floor(GRID_WIDTH / 2) - 1, y: 0 });
   const [gameOver, setGameOver] = useState(false);
@@ -16,12 +16,10 @@ const Tetris = () => {
 
   useEffect(() => {
     const initializeGame = () => {
-      setGrid(createEmptyGrid());
+      setGrid(createEmptyGrid(15, 10));
       const temp = randomTetromino();
       setTetromino(temp.shape);
       setColours(temp.color);
-      console.log(temp)
-      console.log('hi')
       setTetrominoPos({ x: Math.floor(GRID_WIDTH / 2) - 1, y: 0 });
       setGameOver(false);
       setNextThreeTetrominos([randomTetromino(), randomTetromino(), randomTetromino()]);
@@ -90,9 +88,6 @@ const Tetris = () => {
     //   ...prevPos,
     //   y: prevPos.y + dropDistance,
     // }));
-    console.log(dropDistance)
-    console.log(tetrominoPos)
-    console.log(tetrominoPos.y + dropDistance)
     // for(let i=0; i<dropDistance; i++){
     //   dropTetromino();
     // }
@@ -105,7 +100,6 @@ const Tetris = () => {
         // y: tetrominoPos.y + dropDistance,
         // x: tetrominoPos.x,
         // y: tetrominoPos.y + dropDistance,
-    console.log(tetrominoPos)
     
 
     // Lock the Tetrimino in place and spawn a new one
@@ -134,7 +128,6 @@ const Tetris = () => {
     }
     nextThreeTetrominos[nextThreeTetrominos.length-1] = randomTetromino();
 
-    console.log(nextThreeTetrominos)
   }
 
   const placeTetromino = (tetrominoPos) => {
@@ -177,8 +170,15 @@ const Tetris = () => {
     
     // swap curr tetronimo and hold tetronimo, update coords of new curr tetronimo, update board
     // swap
-    setHold({tetromino, colours});
-    popAndSetNextTetromino();
+    if(hold===null){
+      setHold({tetromino, colours});
+      popAndSetNextTetromino();
+    } else {
+      let temp=hold;
+      setHold({tetromino, colours});
+      setTetromino(temp.tetromino);
+      setColours(temp.colours);
+    }
 
     // above set methods may not set in time for this method call, be wary of that, use print here
     setTetrominoStartPos()
@@ -217,7 +217,21 @@ const Tetris = () => {
     };
   }, [handleKeyDown]);
 
+  console.log(hold)
+
+
   return (
+    <div className='whole'>
+      <div className='tetrisTwo'>
+        <div className='uppt2'>
+          <h2>HOLDS</h2>
+          <div className='hold'>
+            {hold ? (<GameGrid grid={createEmptyGrid(5, 10)} tetromino={hold.tetromino} tetrominoPos={{ x: 2, y: 1}} colours={hold.colours} />) : ( <GameGrid
+          grid={createEmptyGrid(5, 10)} // Render an empty grid
+        />)}
+        </div>
+      </div>
+      </div>
     <div className="tetris">
       <div className='up'>
         <h1>FITRIS</h1>
@@ -231,6 +245,27 @@ const Tetris = () => {
           </div>
         )}
       </div>
+    </div>
+    <div className='tetrisThree'>
+        <div className='uppt2'>
+          <h2>NEXT</h2>
+          <div className='next-tetrominos'>
+            {nextThreeTetrominos.map((nextTetromino, index) => (
+              nextTetromino && (
+              <div key={index}>
+                <GameGrid
+                  grid={createEmptyGrid(4, 10)}
+                  tetromino={nextTetromino.shape}
+                  tetrominoPos={{ x: 2, y: 1 }}
+                  colours={nextTetromino.color}
+                />
+              </div>
+              )
+            ))}     
+          </div>   
+        </div>
+      </div>
+    
     </div>
   );
 };
