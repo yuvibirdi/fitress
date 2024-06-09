@@ -159,3 +159,18 @@ h2{
   display: flex;
   justify-content: center;
 }
+
+.leftline{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.score{
+  display: flex;
+  justify-content: center;
+  color: #ccc;
+  font-size: 28px;
+  padding: 10px;
+}
