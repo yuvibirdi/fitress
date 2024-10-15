@@ -1,70 +1,70 @@
-# Getting Started with Create React App
+# FITRIS: Fitness Meets Tetris
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**FITRIS** is an innovative exercise game that combines fitness routines with the classic game of Tetris. The game uses AI-powered exercise detection to make working out engaging and fun. With **OpenCV** detecting exercise movements and a responsive game design, FITRIS transforms your workout into game controls, making fitness more interactive.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **AI-Powered Exercise Detection**: Uses **OpenCV** to recognize different fitness movements like squats, push-ups, jumping jacks, and more.
+- **Interactive Gameplay**: Fitness routines control the Tetris blocks, providing a fun, real-time workout challenge.
+- **ReactJS Frontend**: A dynamic and user-friendly interface built with **ReactJS**.
+- **Flask Backend**: Secure and efficient backend logic developed with **Flask**.
+- **Motivational Game Design**: Challenges and rewards keep you motivated throughout your workout.
+- **Customizable Exercises**: Users can select different exercises to match their fitness level.
 
-### `npm start`
+## Tech Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Frontend**: ReactJS
+- **Backend**: Flask
+- **AI/Exercise Detection**: OpenCV
+- **UI/UX Design**: Adobe XD / Figma
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## How It Works
 
-### `npm test`
+1. **Setup Your Webcam**: FITRIS requires access to your webcam to detect your movements.
+2. **Play Tetris**: Your movements control the Tetris blocks. For example, squats may rotate a block.
+4. **Stay Fit**: The game tracks your performance, offering a fun and interactive way to stay active.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Installation
 
-### `npm run build`
+1. Clone this repository:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    ```bash
+    git clone https://github.com/yourusername/fitris.git
+    cd fitris
+    ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. Install the dependencies for the backend:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    ```bash
+    pip install -r requirements.txt
+    ```
 
-### `npm run eject`
+3. Install the frontend dependencies:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+    ```bash
+    cd frontend
+    npm install
+    ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+4. Start the Flask backend:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+    ```bash
+    cd ..
+    python app.py
+    ```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+5. Start the React frontend:
 
-## Learn More
+    ```bash
+    cd frontend
+    npm start
+    ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+6. Open your browser and go to `http://localhost:3000`.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Usage
 
-### Code Splitting
+- Ensure your webcam is connected and allowed in the browser.
+- Select the exercises you want to perform.
+- Play the game while performing the chosen exercises. Each movement controls a different part of the Tetris gameplay.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
